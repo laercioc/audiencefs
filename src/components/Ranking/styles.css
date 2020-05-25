@@ -1,0 +1,94 @@
+.based-ranking .ranking {
+    width: 100%;
+    position: relative;
+    height: 75px;
+    border-radius: 10px;
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: transform 0.4s, margin-top 0.3s;
+}
+
+.based-ranking .ranking:before {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-weight: 700;
+    color: #FFF;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+}
+
+.based-ranking .ranking:first-child:before {
+    content: '1';
+    background-color: #e8c30b;
+}
+
+.based-ranking .ranking:nth-child(2):before {
+    content: '2';
+    background-color: #bbbbbb;
+}
+
+.based-ranking .ranking:nth-child(3):before {
+    content: '3';
+    background-color: #a08912;
+}
+
+.based-ranking .ranking .based-t .name {
+    font-weight: 700;
+}
+
+.based-ranking .ranking .based-t .number {
+    font-size: 13px;
+}
+
+.based-ranking .ranking .img {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-position: center;
+    background-size: cover;
+    width: 120px;
+    z-index: 1;
+    top: 0;
+}
+
+.based-ranking .ranking:hover {
+    transform: scale(1.05);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    z-index: 999;
+    margin-top: -30px;
+}
+
+.based-ranking .ranking .additional-info {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #f2f9ff;
+    bottom: -75px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 15px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    transform: rotateX(90deg);
+    transform-origin: top;
+}
+
+.based-ranking .ranking:hover .additional-info {
+    transform: rotateX(0);
+}
+
+.based-ranking .ranking:hover .img {
+    height: calc(100% + 75px);
+}
