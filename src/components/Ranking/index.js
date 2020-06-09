@@ -13,8 +13,8 @@ function Ranking(props) {
             <div className="img" style={{backgroundImage: `url(${props.img})`}}></div>
 
             <div className="additional-info">
-                <div className="loc">JuaoN</div>
-                <div className="prog">Banana Explosiva</div>
+                <div className="loc">{props.locutor}</div>
+                <div className="prog">{props.programa}</div>
             </div>
         </li>
     );

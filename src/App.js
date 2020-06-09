@@ -11,8 +11,39 @@ import Ranking from './components/Ranking';
 function App() {
     const [radios, setRadios] = useState([]);
 
+
+    const RadiosUpdate = async () => {
+        console.log('Atualizando...')
+        let currentState = [...radios];
+
+        await RadiosList.map(async(item) => {
+            let thisRadioIndex = currentState.findIndex(radios => radios.radio === item.radio)
+            console.log(thisRadioIndex)
+
+            const response = await axios.get('http://localhost:3001', {
+                params: {
+                    url: item.stream,
+                    type: item.type
+                }
+            })
+
+            currentState[thisRadioIndex] = {
+                radio: item.radio,
+                imagem: item.imagem,
+                ouvintes: response.data.ouvintes,
+                locutor: response.data.locutor,
+                programa: response.data.programa,    
+            }
+        })
+
+        clearInterval(Interval)
+        setRadios(currentState)
+    }
+
+    const Interval = setInterval(RadiosUpdate, 8000)
+
     useEffect(() => {
-        console.log('Iniciando status...');
+        console.log('Iniciando status...')
 
         RadiosList.map(async (item) => {
 
@@ -21,11 +52,17 @@ function App() {
                     url: item.stream,
                     type: item.type
                 }
-            });
+            })
             
-            console.log(response.data);
-        });
-    }, []);
+            setRadios((prev) => [{
+                radio: item.radio,
+                imagem: item.imagem,
+                ouvintes: response.data.ouvintes,
+                locutor: response.data.locutor,
+                programa: response.data.programa,    
+            }, ...prev])
+        })
+    }, [])
 
     return (
         <div className="container">
@@ -33,8 +70,17 @@ function App() {
 
             <ol type="1" className="based-ranking">
                 {
-                    RadiosList.map(item => (
-                        <Ranking key={item.radio} fs={item.radio} ouv="0" img={item.imagem}/>
+                    radios
+                    .sort((a, b) => a.ouvintes < b.ouvintes ? 1 : -1)
+                    .map((item, i) => (
+                        <Ranking 
+                            key={i} 
+                            fs={item.radio} 
+                            ouv={item.ouvintes} 
+                            locutor={item.locutor} 
+                            programa={item.programa} 
+                            img={item.imagem}
+                        />
                     ))
                 }
             </ol>
